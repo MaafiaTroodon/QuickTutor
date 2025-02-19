@@ -1,0 +1,17 @@
+
+V	java:S110"<This class has 8 parents which is greater than 5 authorized.(Õ‘³”úÿÿÿÿ
+O
+java:S1128
+"-Remove this unused import 'android.os.Build'.(ãÇ¤Úıÿÿÿÿ8è†íÄİ1
+W
+java:S1128"5Remove this unused import 'android.location.Address'.(ˆùÄ©úÿÿÿÿ8è†íÄİ1
+X
+java:S1128	"6Remove this unused import 'android.location.Geocoder'.(¼ö„øÿÿÿÿ8è†íÄİ1
+H
+java:S14816"+Remove this unused "marker" local variable.(›ıîå8÷½ùÄİ1
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8è†íÄİ1
+W
+java:S18546":Remove this useless assignment to local variable "marker".(›ıîå8÷½ùÄİ1
+b
+java:S1128"ERemove this unused import 'androidx.appcompat.app.AppCompatActivity'.(€¶£î8ıÊ…Äİ1

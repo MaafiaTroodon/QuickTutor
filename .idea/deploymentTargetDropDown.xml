@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="app">
+        <State />
+      </entry>
+      <entry key="testItemRequireDryCleaning()">
+        <State />
+      </entry>
+      <entry key="testSearchItem()">
+        <State />
+      </entry>
+      <entry key="testShowItemDetails()">
+        <State />
+      </entry>
+      <entry key="testShowItemOnMap()">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>

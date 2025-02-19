@@ -1,0 +1,13 @@
+
+y	java:S116"^Rename this field "CARD_LENGTH_SIXTEEN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈŠ`8£µÔ¶ç0
+{	java:S116"_Rename this field "CARD_LENGTH_THIRTEEN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óˆ‚¶8¤µÔ¶ç0
+Q
+java:S1066'"/Merge this if statement with the enclosing one.(² Ø¸ÿÿÿÿÿ8üÎèƒ¡1
+	java:S116
+"^Rename this field "VISA_STARTING_DIGIT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹´·¼ÿÿÿÿÿ8£µÔ¶ç0
+c
+java:S1126"AReplace this if-then-else statement by a single return statement.(ñ‘©ùÿÿÿÿ8³®öƒ¡1
+i
+java:S1871%"LThis branch's code block is the same as the block for the branch on line 36.(¾±Ş«8üÎèƒ¡1
+U	java:S1062"9Replace this use of System.out or System.err by a logger.(”äË©8üÎèƒ¡1
+…	java:S116	"dRename this field "MASTERCARD_STARTING_DIGIT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šÎ“¥ıÿÿÿÿ8£µÔ¶ç0
