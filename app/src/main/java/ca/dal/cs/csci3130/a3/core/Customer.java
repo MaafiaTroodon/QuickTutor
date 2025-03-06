@@ -3,10 +3,7 @@ package ca.dal.cs.csci3130.a3.core;
 public class Customer {
     private final String firstName;
     private final String lastName;
-    private String programCode;
-    private String bannerID;
-    private int points;
-
+    private DalCard dalCard;  // Delegation of DalCard responsibility
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
@@ -18,16 +15,14 @@ public class Customer {
     }
 
     public void setDalCard(String programCode, String bannerID, int points) {
-        this.programCode = programCode;
-        this.bannerID = bannerID;
-        this.points = points;
+        this.dalCard = new DalCard(programCode, bannerID, points);
     }
 
     public String getDalCardNumber() {
-        return this.programCode + "-" + this.bannerID;
+        return (dalCard != null) ? dalCard.getCardNumber() : "No DalCard assigned";
     }
 
     public int getDalCardPoints() {
-        return this.points;
+        return (dalCard != null) ? dalCard.getPoints() : 0;
     }
 }

@@ -1,7 +1,6 @@
 package ca.dal.cs.csci3130.a3;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Before;
@@ -30,6 +29,7 @@ public class CustomerTest {
     public void testCustomerDalCardNumber() {
         firstCustomer.setDalCard("BCS", "B00881213", 100);
         assertEquals("BCS-B00881213", firstCustomer.getDalCardNumber());
+
         secondCustomer.setDalCard("BACS", "B00562314", 200);
         assertEquals("BACS-B00562314", secondCustomer.getDalCardNumber());
     }
@@ -38,7 +38,15 @@ public class CustomerTest {
     public void testCustomerDalCardPoints() {
         firstCustomer.setDalCard("BCS", "B00881213", 500);
         assertEquals(500, firstCustomer.getDalCardPoints());
+
         secondCustomer.setDalCard("MACS", "B00567899", 500);
         assertNotEquals(200, secondCustomer.getDalCardPoints());
+    }
+
+    @Test
+    public void testCustomerWithoutDalCard() {
+        Customer newCustomer = new Customer("John", "Smith");
+        assertEquals("No DalCard assigned", newCustomer.getDalCardNumber());
+        assertEquals(0, newCustomer.getDalCardPoints());
     }
 }
