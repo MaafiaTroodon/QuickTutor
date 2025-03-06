@@ -8,18 +8,25 @@
     android:clickable="true"
     android:focusable="true"
     android:background="?attr/selectableItemBackground"
-    android:padding="1dp">
+    android:padding="8dp"
+    android:minHeight="48dp">
 
     <TextView
+        android:id="@+id/itemNameRV"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:id="@+id/itemNameRV"></TextView>
+        android:textSize="16sp"
+        android:minHeight="48dp"
+        android:gravity="center_vertical"
+        android:padding="8dp" />
 
     <TextView
+        android:id="@+id/itemPriceRV"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:id="@+id/itemPriceRV"></TextView>
+        android:textSize="16sp"
+        android:minHeight="48dp"
+        android:gravity="center_vertical"
+        android:padding="8dp" />
 
 </GridLayout>

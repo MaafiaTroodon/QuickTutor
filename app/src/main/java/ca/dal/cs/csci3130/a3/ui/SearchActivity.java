@@ -25,52 +25,85 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
 
     ItemCRUD crud;
     SearchRecyclerViewAdapter adapter;
+    RecyclerView resultView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        this.crud = new ItemCRUD();
+        this.resultView = findViewById(R.id.resultsRecyclerView);
+
         this.loadCategorySpinner();
         this.setupSearchButton();
-        this.crud = new ItemCRUD();
+        setupRecyclerView();
     }
 
+    // Load spinner with categories
     protected void loadCategorySpinner() {
         List<String> categories = new ArrayList<>();
         categories.add("Select a category");
         categories.add(AppConstants.CLOTHES);
         categories.add(AppConstants.FOOD);
         categories.add(AppConstants.BOOK);
+
         Spinner catSpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         categoryAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         catSpinner.setAdapter(categoryAdapter);
     }
 
+    // Get selected category from spinner
     protected String getSelectedCategory() {
         Spinner catSpinner = findViewById(R.id.categorySpinner);
         return catSpinner.getSelectedItem().toString();
     }
 
-    protected void showSearchResults(ArrayList<Item> items, ArrayList<String> headers) {
-        //buggy method, fix the bug!
-        RecyclerView resultView = findViewById(R.id.resultsRecyclerView);
+    // Fix the RecyclerView setup method
+    protected void setupRecyclerView() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         resultView.setLayoutManager(manager);
         DividerItemDecoration decoration = new DividerItemDecoration(resultView.getContext(), manager.getOrientation());
         resultView.addItemDecoration(decoration);
     }
 
+    // Fix the method to display search results
+    protected void showSearchResults(ArrayList<Item> items, ArrayList<String> headers) {
+        if (items == null || items.isEmpty() || headers == null || headers.isEmpty()) {
+            return; // Avoid setting an empty or null adapter
+        }
 
-    protected ArrayList<Item> collectRetrievedResults(String category) {
-        //buggy method, fix the bug!
-        return null;
+        if (adapter == null) { // Initialize adapter if it's null
+            adapter = new SearchRecyclerViewAdapter(this, items, headers);
+            adapter.setClickListener(this); // Set the click listener
+            resultView.setAdapter(adapter);
+        } else {
+            adapter.updateData(items, headers); // Update adapter with new data
+            adapter.notifyDataSetChanged();
+        }
     }
 
+
+
+
+    // Fix the method to collect retrieved results based on the category
+    protected ArrayList<Item> collectRetrievedResults(String category) {
+        if (category.equals("Select a category")) {
+            return new ArrayList<>(); // Return empty list if no category is selected
+        }
+
+        ArrayList<Item> items = crud.getItemsByCategory(category);
+        return (items != null) ? items : new ArrayList<>();
+    }
+
+
+    // Retrieve item headers
     protected ArrayList<String> collectItemHeaders() {
         return this.crud.collectItemHeaders();
     }
 
+    // Setup search button to perform a search and display results
     protected void setupSearchButton() {
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(view -> {
@@ -81,15 +114,20 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
         });
     }
 
-
+    // Handle item click event
     @Override
     public void onItemClick(View view, int position) {
-        //incomplete method, add the behaviour
+        if (adapter != null) {
+            Item selectedItem = adapter.getItem(position);
+            showItemDetails(selectedItem);
+        }
     }
 
+    // Open details activity with the selected item
     protected void showItemDetails(Item selected) {
         Intent detailIntent = new Intent(getBaseContext(), DetailsActivity.class);
-        detailIntent.putExtra("selectedItem", selected);
+        detailIntent.putExtra("selected_item", selected); // Ensure the key matches the receiver
         startActivity(detailIntent);
     }
+
 }

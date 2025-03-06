@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.RadioButton;
@@ -39,15 +40,45 @@ public class DetailsActivity extends AppCompatActivity {
 
         this.setupBuyButton();
         this.setupMapButton();
+
+        TextView audibleOption = findViewById(R.id.audibleOption);
+
+        // Get the intent and extract the "Audible" flag
+        boolean isAudible = getIntent().getBooleanExtra("Audible", false);
+
+        // Debugging log
+        Log.d("DetailsActivity", "Received item: " + getIntent().getStringExtra("itemName") + ", Audible: " + isAudible);
+
+        // If Audible is true, make it visible
+        if (isAudible) {
+            audibleOption.setVisibility(View.VISIBLE);
+        }
     }
 
     protected Item getSelectedItem() {
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("selected_item")) {
-            return (Item) intent.getSerializableExtra("selected_item");
+        if (intent != null) {
+            if (intent.hasExtra("selected_item")) {
+                Item item = intent.getParcelableExtra("selected_item");
+                if (item != null) {
+                    Log.d("DetailsActivity", "Received item: " + item.getName() +
+                            ", Audible: " + item.isAudible());
+                } else {
+                    Log.e("DetailsActivity", "Failed to deserialize 'selected_item'.");
+                }
+                return item;
+            } else {
+                Log.e("DetailsActivity", "Intent does not contain 'selected_item'");
+            }
+        } else {
+            Log.e("DetailsActivity", "Intent is null");
         }
         return null;
     }
+
+
+
+
 
     public void showItemDetails(Item item) {
         if (item != null) {
@@ -59,15 +90,24 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     public void showSpecificDetails(Item item) {
-        GridLayout gridLayout = findViewById(R.id.detailContainerGL);
+        Log.d("DetailsActivity", "Checking specific details for: " + item.getName());
+
         if (item instanceof Clothes) {
-            addWoolen(((Clothes) item).isWoolen());
+            Log.d("DetailsActivity", "Item is Clothes, adding Woolen...");
+            addWoolen(item.isWoolen());
         } else if (item instanceof Food) {
-            addPerishable(((Food) item).isPerishable());
+            Log.d("DetailsActivity", "Item is Food, adding Perishable...");
+            addPerishable(item.isPerishable());
         } else if (item instanceof Book) {
-            addAudible(((Book) item).isPaperback());
+            Log.d("DetailsActivity", "Item is Book, Audible value: " + item.isAudible());
+            addAudible(item.isAudible());
         }
     }
+
+
+
+
+
 
     protected void showItemName(String name) {
         TextView itemName = findViewById(R.id.itemName);
@@ -113,14 +153,32 @@ public class DetailsActivity extends AppCompatActivity {
         gridLayout.addView(perishRadioButton);
     }
 
-    protected void addAudible(boolean isPaperback) {
-        GridLayout gridLayout = findViewById(R.id.detailContainerGL);
-        RadioButton audibleRadioButton = new RadioButton(this);
-        audibleRadioButton.setChecked(isPaperback);
-        audibleRadioButton.setEnabled(false);
-        audibleRadioButton.setText(AppConstants.AUDIBLE);
-        gridLayout.addView(audibleRadioButton);
+    protected void addAudible(boolean isAudible) {
+        Log.d("DetailsActivity", "Attempting to add Audible option. isAudible: " + isAudible);
+
+        if (!isAudible) {
+            Log.w("DetailsActivity", "Audible option is false. Skipping UI update.");
+            return;
+        }
+
+        runOnUiThread(() -> {
+            GridLayout gridLayout = findViewById(R.id.detailContainerGL);
+            if (gridLayout == null) {
+                Log.e("DetailsActivity", "GridLayout is NULL! Check activity_details.xml");
+                return;
+            }
+
+            RadioButton audibleRadioButton = new RadioButton(this);
+            audibleRadioButton.setChecked(true);
+            audibleRadioButton.setEnabled(false);
+            audibleRadioButton.setText("Audible");
+
+            gridLayout.addView(audibleRadioButton);
+            Log.d("DetailsActivity", "Audible option successfully added to UI.");
+        });
     }
+
+
 
     protected void setupBuyButton() {
         Button buyNowButton = findViewById(R.id.buyButton);

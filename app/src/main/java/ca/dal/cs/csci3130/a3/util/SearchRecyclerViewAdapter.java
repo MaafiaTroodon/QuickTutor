@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import ca.dal.cs.csci3130.a3.R;
 import ca.dal.cs.csci3130.a3.firebase.Item;
+import ca.dal.cs.csci3130.a3.ui.SearchActivity;
 
 
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -80,7 +81,17 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     public Item getItem(int position) {
+        if (position == 0) return null; // Header row
         return this.items.get(position - 1);
+    }
+
+
+    public void setClickListener(ItemClickListener listener) {
+        this.listener = listener;
+    }
+
+
+    public void updateData(ArrayList<Item> items, ArrayList<String> headers) {
     }
 
     class VHItem extends RecyclerView.ViewHolder {
@@ -91,8 +102,14 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             super(itemView);
             itemNameRCV = itemView.findViewById(R.id.itemNameRV);
             itemPriceRCV = itemView.findViewById(R.id.itemPriceRV);
-            itemView.setOnClickListener(view -> listener.onItemClick(view, getAdapterPosition()));
+
+            itemView.setOnClickListener(view -> {
+                if (listener != null) { // Prevent NullPointerException
+                    listener.onItemClick(view, getAdapterPosition());
+                }
+            });
         }
+
     }
 
     class VHHeader extends RecyclerView.ViewHolder {
@@ -113,4 +130,5 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     public interface ItemClickListener {
         public void onItemClick(View view, int position);
     }
+
 }

@@ -133,4 +133,15 @@ public class ItemCRUD {
             return topItem;
         } else return null;
     }
+
+    public ArrayList<Item> getItemsByCategory(String category) {
+        ArrayList<Item> retrieved = new ArrayList<>();
+        for (Item item : this.items) {
+            if (item.getCategory().equals(category)) {
+                retrieved.add(item);
+            }
+        }
+        return retrieved;
+    }
+
 }
