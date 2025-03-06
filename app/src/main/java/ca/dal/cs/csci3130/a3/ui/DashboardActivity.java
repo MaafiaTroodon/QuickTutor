@@ -22,9 +22,12 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        this.loadRoleSpinner();
-        this.setupEnterButton();
+
+        this.loadRoleSpinner();  // Load role dropdown
+        this.setupEnterButton(); // Call this method to setup the button listener
     }
+
+
 
     protected void loadRoleSpinner() {
         List<String> roles = new ArrayList<>();
@@ -44,9 +47,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     protected AppUser getAppUser(String role) {
-        //buggy method, fix the bug!
-        return null;
+        if (role.equals("Student") || role.equals("Tutor") || role.equals("Admin")) {
+            return new AppUser(role);
+        }
+        return null; // If an invalid role is selected
     }
+
 
 
     protected void setupEnterButton() {
@@ -59,8 +65,19 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void manageUserPanel(AppUser user) {
-        //Incomplete method, add the access control logic
+        if (user == null) {
+            return; // Do nothing if user is null
+        }
+
+        clearOldPanels(); // Remove existing UI panels
+
+        // Show or hide UI panels based on user permissions
+        manageTutorSearchPanelDisplay(user.canSearchForTutor());
+        manageAdPanelDisplay(user.canPlaceOnlineAd());
+        manageShoppingPanelDisplay(user.canGoShopping());
+        manageAdminPanelDisplay(user.hasAdminAccess());
     }
+
 
     protected void clearOldPanels() {
         FragmentManager manager = getSupportFragmentManager();
