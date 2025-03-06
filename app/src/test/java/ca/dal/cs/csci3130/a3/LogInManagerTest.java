@@ -17,8 +17,24 @@ public class LogInManagerTest {
 
     @Before
     public void setup() {
-        //Implement setup method, and mock the CRUD objects using the Mockito framework
+        studentCRUD = Mockito.mock(IUserCRUD.class);
+        tutorCRUD = Mockito.mock(IUserCRUD.class);
+        adminCRUD = Mockito.mock(IUserCRUD.class);
+
+        // Mock behaviors for user login validation
+        Mockito.when(studentCRUD.checkIfEmailIsRegistered("student@dal.ca")).thenReturn(true);
+        Mockito.when(studentCRUD.checkIfPasswordHashMatches(AppConstants.PASSWORD_HASH)).thenReturn(true);
+        Mockito.when(studentCRUD.getUserRole("student@dal.ca")).thenReturn("Student");
+
+        Mockito.when(tutorCRUD.checkIfEmailIsRegistered("tutor@dal.ca")).thenReturn(true);
+        Mockito.when(tutorCRUD.checkIfPasswordHashMatches(AppConstants.PASSWORD_HASH)).thenReturn(true);
+        Mockito.when(tutorCRUD.getUserRole("tutor@dal.ca")).thenReturn("Tutor");
+
+        Mockito.when(adminCRUD.checkIfEmailIsRegistered("admin@dal.ca")).thenReturn(true);
+        Mockito.when(adminCRUD.checkIfPasswordHashMatches(AppConstants.PASSWORD_HASH)).thenReturn(true);
+        Mockito.when(adminCRUD.getUserRole("admin@dal.ca")).thenReturn("Admin");
     }
+
 
     @Test
     public void testStudentLogIn() {
