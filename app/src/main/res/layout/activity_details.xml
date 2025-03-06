@@ -48,16 +48,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Audible"
-            android:textSize="16dp"
-            android:visibility="gone"/>
+            android:textSize="16dp" />
 
         <RadioButton
             android:id="@+id/itemAvailability"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:hint="Available"
+            android:text="Available"
             android:textSize="16dp"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:focusable="false"
+            android:clickable="false"/>
+
+
 
     </GridLayout>
 

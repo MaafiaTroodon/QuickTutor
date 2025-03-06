@@ -34,7 +34,6 @@ public class DetailsActivity extends AppCompatActivity {
             this.showItemDetails(this.selectedItem);
             this.showSpecificDetails(this.selectedItem);
         } else {
-            Log.e("DetailsActivity", "Selected item is null. Cannot display details.");
             showItemName("Item not found");
         }
 
@@ -45,9 +44,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         // Get the intent and extract the "Audible" flag
         boolean isAudible = getIntent().getBooleanExtra("Audible", false);
-
-        // Debugging log
-        Log.d("DetailsActivity", "Received item: " + getIntent().getStringExtra("itemName") + ", Audible: " + isAudible);
 
         // If Audible is true, make it visible
         if (isAudible) {
@@ -90,16 +86,12 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     public void showSpecificDetails(Item item) {
-        Log.d("DetailsActivity", "Checking specific details for: " + item.getName());
 
         if (item instanceof Clothes) {
-            Log.d("DetailsActivity", "Item is Clothes, adding Woolen...");
             addWoolen(item.isWoolen());
         } else if (item instanceof Food) {
-            Log.d("DetailsActivity", "Item is Food, adding Perishable...");
             addPerishable(item.isPerishable());
         } else if (item instanceof Book) {
-            Log.d("DetailsActivity", "Item is Book, Audible value: " + item.isAudible());
             addAudible(item.isAudible());
         }
     }
