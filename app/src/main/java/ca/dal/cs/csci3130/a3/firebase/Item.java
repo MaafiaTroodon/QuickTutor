@@ -76,6 +76,9 @@ public class Item implements Serializable {
     String location;
     boolean isAvailable;
 
+    public boolean isPaperback() {
+        return false;
+    }
 }
 
 

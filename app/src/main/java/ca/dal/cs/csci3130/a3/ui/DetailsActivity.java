@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.RadioButton;
@@ -26,27 +27,46 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
         this.selectedItem = getSelectedItem();
-        this.showItemDetails(this.selectedItem);
-        this.showSpecificDetails(this.selectedItem);
+        if (this.selectedItem != null) {
+            this.showItemDetails(this.selectedItem);
+            this.showSpecificDetails(this.selectedItem);
+        } else {
+            Log.e("DetailsActivity", "Selected item is null. Cannot display details.");
+            showItemName("Item not found");
+        }
+
         this.setupBuyButton();
         this.setupMapButton();
     }
 
     protected Item getSelectedItem() {
-        //buggy method, fix the bug!
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("selected_item")) {
+            return (Item) intent.getSerializableExtra("selected_item");
+        }
         return null;
     }
 
     public void showItemDetails(Item item) {
-        showItemName(item.getName());
-        showItemPrice(item.getPrice());
-        showItemLocation(item.getLocation());
-        showItemAvailability(item.isAvailable());
+        if (item != null) {
+            showItemName(item.getName());
+            showItemPrice(item.getPrice());
+            showItemLocation(item.getLocation());
+            showItemAvailability(item.isAvailable());
+        }
     }
 
     public void showSpecificDetails(Item item) {
-        //Incomplete method, add the behaviour
+        GridLayout gridLayout = findViewById(R.id.detailContainerGL);
+        if (item instanceof Clothes) {
+            addWoolen(((Clothes) item).isWoolen());
+        } else if (item instanceof Food) {
+            addPerishable(((Food) item).isPerishable());
+        } else if (item instanceof Book) {
+            addAudible(((Book) item).isPaperback());
+        }
     }
 
     protected void showItemName(String name) {
@@ -101,7 +121,6 @@ public class DetailsActivity extends AppCompatActivity {
         audibleRadioButton.setText(AppConstants.AUDIBLE);
         gridLayout.addView(audibleRadioButton);
     }
-
 
     protected void setupBuyButton() {
         Button buyNowButton = findViewById(R.id.buyButton);
