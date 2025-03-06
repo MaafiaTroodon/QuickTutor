@@ -53,22 +53,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     protected Item getSelectedItem() {
         Intent intent = getIntent();
-        if (intent != null) {
-            if (intent.hasExtra("selected_item")) {
-                Item item = intent.getParcelableExtra("selected_item");
-                if (item != null) {
-                    Log.d("DetailsActivity", "Received item: " + item.getName() +
-                            ", Audible: " + item.isAudible());
-                } else {
-                    Log.e("DetailsActivity", "Failed to deserialize 'selected_item'.");
-                }
-                return item;
-            } else {
-                Log.e("DetailsActivity", "Intent does not contain 'selected_item'");
-            }
-        } else {
-            Log.e("DetailsActivity", "Intent is null");
-        }
+
         return null;
     }
 
