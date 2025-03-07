@@ -30,7 +30,7 @@ Each user has a different role and corresponding **permissions**:
 - **Admin:** Can search tutors, place ads, and manage users but **cannot shop**.  
 
 🚀 **Student Dashboard View:**  
-![Student Dashboard](images/Screenshot_20250306_173926.png)  
+![Student Dashboard](images/productOverview2.png)  
 
 ---
 
@@ -50,7 +50,7 @@ Users can browse and purchase items from the store.
 ![Store Details](images/storedetails.png)  
 
 📖 **Product Details Page**  
-![Product Overview](images/productOverview.png)  
+![Product Overview](images/productOverview2.png)  
 
 ---
 
