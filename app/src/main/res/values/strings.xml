@@ -6,5 +6,6 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="google_maps_key">AIzaSyBclrd4g-mQlWCdOFtqa8q9u7OaIKNqoUo</string>
+
 </resources>
