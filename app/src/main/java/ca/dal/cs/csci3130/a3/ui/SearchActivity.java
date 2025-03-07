@@ -126,8 +126,12 @@ public class SearchActivity extends AppCompatActivity implements SearchRecyclerV
     // Open details activity with the selected item
     protected void showItemDetails(Item selected) {
         Intent detailIntent = new Intent(getBaseContext(), DetailsActivity.class);
-        detailIntent.putExtra("selected_item", selected); // Ensure the key matches the receiver
+        detailIntent.putExtra("itemName", selected.getName());
+        detailIntent.putExtra("itemPrice", selected.getPrice());
+        detailIntent.putExtra("itemLocation", selected.getLocation());
+        detailIntent.putExtra("itemAvailability", selected.isAvailable());
         startActivity(detailIntent);
     }
+
 
 }

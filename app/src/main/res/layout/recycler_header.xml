@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -8,17 +9,24 @@
     android:clickable="true"
     android:focusable="true"
     android:background="?attr/selectableItemBackground"
-    android:padding="1dp">
+    android:padding="10dp"
+    tools:ignore="ExtraText"> <!-- Increased padding -->
 
     <TextView
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
         android:id="@+id/itemNameHeader"
-        android:textSize="16dp"></TextView>
+        android:textSize="18sp"
+        android:minHeight="48dp"
+        android:padding="10dp" /> <!-- Corrected closing tag -->
 
     <TextView
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
         android:id="@+id/itemPriceHeader"
-        android:textSize="16dp"></TextView>
+        android:textSize="18sp"
+        android:minHeight="48dp"
+        android:padding="10dp" /> <!-- Corrected closing tag -->
 </GridLayout>

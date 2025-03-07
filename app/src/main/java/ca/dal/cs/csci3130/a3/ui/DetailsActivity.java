@@ -29,27 +29,27 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        this.selectedItem = getSelectedItem();
-        if (this.selectedItem != null) {
-            this.showItemDetails(this.selectedItem);
-            this.showSpecificDetails(this.selectedItem);
-        } else {
-            showItemName("Item not found");
-        }
+        TextView itemName = findViewById(R.id.itemName);
+        TextView itemPrice = findViewById(R.id.itemPrice);
+        TextView itemLocation = findViewById(R.id.itemLocation);
+        RadioButton itemAvailability = findViewById(R.id.itemAvailability);
 
-        this.setupBuyButton();
-        this.setupMapButton();
+        // Get data from intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            String name = intent.getStringExtra("itemName");
+            double price = intent.getDoubleExtra("itemPrice", 0.0);
+            String location = intent.getStringExtra("itemLocation");
+            boolean availability = intent.getBooleanExtra("itemAvailability", false);
 
-        TextView audibleOption = findViewById(R.id.audibleOption);
-
-        // Get the intent and extract the "Audible" flag
-        boolean isAudible = getIntent().getBooleanExtra("Audible", false);
-
-        // If Audible is true, make it visible
-        if (isAudible) {
-            audibleOption.setVisibility(View.VISIBLE);
+            // Display values
+            itemName.setText(name != null ? name : "No Name Found");
+            itemPrice.setText(price != 0.0 ? "$" + price : "No Price Available");
+            itemLocation.setText(location != null ? location : "No Location Available");
+            itemAvailability.setChecked(availability);
         }
     }
+
 
     protected Item getSelectedItem() {
         Intent intent = getIntent();
